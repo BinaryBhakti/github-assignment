@@ -1,0 +1,71 @@
+GIT COMMANDS USED IN THIS ASSIGNMENT
+====================================
+
+--- Step 1: Local repository setup ---
+ls
+    Lists the files in the project folder (index.html, about.html) before Git is initialised.
+git init -b main
+    Creates a new, empty Git repository in the current folder with "main" as the default branch.
+git status
+    Shows the state of the working tree: untracked, modified and staged files.
+
+--- Step 2: Git workflow ---
+git add index.html about.html
+    Stages the two HTML files so they are included in the next commit.
+git commit -m "Initial commit: add index.html and about.html"
+    Records the staged files as the first snapshot (commit) of the project.
+git diff
+    Shows the line-by-line changes made to about.html that are not yet staged.
+git add about.html
+    Stages the modified about.html.
+git commit -m "Update about.html with an introduction paragraph"
+    Creates the second commit containing the change to about.html.
+git branch feature
+    Creates a new branch named "feature" pointing at the current commit.
+git switch feature
+    Switches the working directory to the "feature" branch.
+git add index.html
+    Stages the change made to index.html on the feature branch.
+git commit -m "Add footer to index.html (feature branch)"
+    Commits the change on the feature branch only; main is not affected.
+git switch main
+    Switches back to the main branch.
+git merge --no-ff feature -m "Merge branch feature into main"
+    Merges feature into main; --no-ff forces a merge commit so the branch stays visible in history.
+git log --oneline --graph --all
+    Shows the commit history of all branches as a compact graph, including the branch and merge.
+
+--- Step 3: .gitignore ---
+cat .gitignore
+    Displays the .gitignore rules (*.log files and the temp/ folder).
+git add .gitignore
+    Stages the .gitignore file.
+git commit -m "Add .gitignore to ignore .log files and temp/ folder"
+    Commits the ignore rules to the repository.
+git check-ignore -v debug.log temp/notes.txt
+    Proves that debug.log and temp/notes.txt are ignored and shows which rule matches each.
+
+--- Step 4: Undo operation ---
+git add contact.html
+    Stages a new file for the extra commit.
+git commit -m "Add contact.html (this commit will be undone)"
+    Makes the additional commit that will be undone.
+git log --oneline -3
+    Shows the last three commits to confirm the extra commit exists.
+git revert --no-edit HEAD
+    Undoes the last commit by creating a new commit with the opposite changes; history is kept,
+    so it is safe for a repository that is shared on GitHub (unlike git reset).
+git log --oneline -4
+    Shows the extra commit and the revert commit that undid it.
+
+--- Step 5: GitHub integration ---
+git remote add origin https://github.com/BinaryBhakti/github-assignment.git
+    Connects the local repository to the GitHub repository under the name "origin".
+git remote -v
+    Lists the configured remotes to confirm the connection.
+git push -u origin main
+    Uploads the main branch and its full history to GitHub and sets origin/main as upstream.
+git push origin feature
+    Uploads the feature branch to GitHub as well.
+git log --oneline --graph --all
+    Shows the final complete history, including the remote-tracking branches.
